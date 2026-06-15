@@ -1,0 +1,12 @@
+
+body{margin:0;font-family:Georgia,serif;background:linear-gradient(#f3e8ff,#fff8f0);color:#5b4378;text-align:center}
+.hero{min-height:100vh;background:linear-gradient(rgba(120,70,170,.55),rgba(120,70,170,.55)),url('assets/ana-paula.jpg') center top/cover no-repeat;display:flex;align-items:center;justify-content:center}
+.overlay{padding:20px;color:white}
+.portrait{width:220px;height:220px;object-fit:cover;border-radius:50%;border:6px solid #fff}
+h1{font-size:3rem;margin:15px 0}
+h2{color:#9c6be8}
+section{padding:55px 20px;max-width:900px;margin:auto}
+.btn{background:#b084f5;color:white;text-decoration:none;padding:12px 24px;border-radius:30px;display:inline-block}
+#countdown{font-size:1.5rem;margin-top:20px}
+footer{background:#b084f5;color:white;padding:25px}
+.lanterns:before{content:'✨ ✨ ✨';position:fixed;top:10px;left:0;right:0;text-align:center;font-size:2rem;opacity:.7}
