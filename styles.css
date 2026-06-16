@@ -13,6 +13,7 @@ footer{background:#b084f5;color:white;padding:25px}
 .slide img{
     width:100%;
     height:600px;
-    object-fit:cover;
+    object-fit:contain;
     display:block;
+    background:white;
 }
