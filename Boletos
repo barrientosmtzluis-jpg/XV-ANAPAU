@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Boletos Digitales</title>
+    <!-- Cargamos html2canvas para permitir a los usuarios descargar el boleto como imagen -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --color-primario: #ffb6c1; /* Rosa pastel clásico de XV */
+            --color-oscuro: #4a4a4a;
+            --color-dorado: #d4af37;
+            --fuente-elegante: 'Playfair Display', 'Georgia', serif;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f6f7;
+            color: var(--color-oscuro);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contenedor {
+            max-width: 500px;
+            width: 100%;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: var(--fuente-elegante);
+            color: var(--color-oscuro);
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .subtitulo {
+            font-style: italic;
+            color: var(--color-dorado);
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .formulario-grupo {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--color-primario);
+            box-shadow: 0 0 5px rgba(255, 182, 193, 0.5);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #ff99aa;
+        }
+
+        /* --- Estilos del Boleto Digital --- */
+        #zona-boleto {
+            display: none; /* Se muestra solo al generar */
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .boleto {
+            background: #fffdf9;
+            border: 2px dashed var(--color-dorado);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        .boleto::before, .boleto::after {
+            content: '';
+            position: absolute;
+            background: #f9f6f7;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .boleto::before { left: -11px; border-right: 2px dashed var(--color-dorado); }
+        .boleto::after { right: -11px; border-left: 2px dashed var(--color-dorado); }
+
+        .boleto-titulo {
+            font-family: var(--fuente-elegante);
+            font-size: 1.8rem;
+            color: var(--color-oscuro);
+            margin: 0 0 10px 0;
+        }
+
+        .boleto-info {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            margin: 15px 0;
+        }
+
+        .familia-nombre {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--color-oscuro);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pases-cantidad {
+            font-size: 1.1rem;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .pases-numero {
+            font-weight: bold;
+            color: var(--color-dorado);
+            font-size: 1.3rem;
+        }
+
+        .detalles-evento {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        .qr-mock {
+            width: 100px;
+            height: 100px;
+            margin: 15px auto 0 auto;
+            background: #fff;
+            border: 4px solid #333;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #333;
+            position: relative;
+        }
+
+        /* Simulación visual de un QR rápido sin librerías pesadas */
+        .qr-mock::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: repeating-linear-gradient(45deg, #333, #333 4px, #fff 4px, #fff 8px);
+            opacity: 0.8;
+        }
+
+        .btn-descargar {
+            background-color: var(--color-oscuro);
+            margin-top: 15px;
+        }
+        .btn-descargar:hover {
+            background-color: #2b2b2b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Mis XV Años</h1>
+        <p class="subtitulo">¡Acompáñanos a celebrar este día tan especial!</p>
+        
+        <!-- Formulario de Registro -->
+        <div id="formulario-registro">
+            <div class="formulario-grupo">
+                <label for="input-familia">Apellido de la Familia / Invitado:</label>
+                <input type="text" id="input-familia" placeholder="Ej. Familia Benítez" required>
+            </div>
+            
+            <div class="formulario-grupo">
+                <label for="select-pases">Número de personas (Pases):</label>
+                <select id="select-pases">
+                    <option value="1">1 Pase</option>
+                    <option value="2" selected>2 Pases</option>
+                    <option value="3">3 Pases</option>
+                    <option value="4">4 Pases</option>
+                    <option value="5">5 Pases</option>
+                    <option value="6">6 Pases</option>
+                </select>
+            </div>
+            
+            <button onclick="generarBoleto()">Generar Boleto Digital</button>
+        </div>
+
+        <!-- Zona del Boleto Generado -->
+        <div id="zona-boleto">
+            <div id="boleto-descargable" class="boleto">
+                <div class="boleto-titulo">Mis XV Años</div>
+                <div style="color: var(--color-dorado); font-size: 0.9rem; letter-spacing: 2px;">PASE PERSONALIZADO</div>
+                
+                <div class="boleto-info">
+                    <div class="familia-nombre" id="txt-familia">Familia Ejemplo</div>
+                    <div class="pases-cantidad">Válido por: <span class="pases-numero" id="txt-pases">2</span> personas</div>
+                </div>
+                
+                <div class="detalles-evento">
+                    <strong>Fecha:</strong> Sábado, 24 de Octubre de 2026<br>
+                    <strong>Recepcíon:</strong> 20:00 hrs.<br>
+                    <strong>Salón:</strong> "Gran Palacio de Cristal"
+                </div>
+
+                <!-- Código QR Dinámico simulado -->
+                <div class="qr-mock"></div>
+                <div style="font-size: 0.7rem; color: #999; margin-top: 5px;" id="codigo-unico">ID: XV-0000</div>
+            </div>
+
+            <button class="btn-descargar" onclick="descargarComoImagen()">Descargar como Imagen</button>
+            <button style="background: none; color: #888; font-size: 0.9rem; margin-top: 10px;" onclick="regresar()">Modificar datos</button>
+        </div>
+    </div>
+
+    <script>
+        function generarBoleto() {
+            const familia = document.getElementById('input-familia').value.trim();
+            const pases = document.getElementById('select-pases').value;
+
+            if (familia === "") {
+                alert("Por favor, ingresa el nombre de la familia o invitado.");
+                return;
+            }
+
+            // Asignar los valores al boleto visual
+            document.getElementById('txt-familia').innerText = familia;
+            document.getElementById('txt-pases').innerText = pases;
+            
+            // Generar un código único aleatorio para control de accesos
+            const codigoAleatorio = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('codigo-unico').innerText = `ID: XV-${codigoAleatorio}`;
+
+            // Intercambiar vistas
+            document.getElementById('formulario-registro').style.display = 'none';
+            document.getElementById('zona-boleto').style.display = 'block';
+        }
+
+        function regresar() {
+            document.getElementById('formulario-registro').style.display = 'block';
+            document.getElementById('zona-boleto').style.display = 'none';
+        }
+
+        function descargarComoImagen() {
+            const elementoBoleto = document.getElementById('boleto-descargable');
+            const nombreFamilia = document.getElementById('txt-familia').innerText;
+
+            // Opción de configuración para mejorar calidad en pantallas móviles
+            const opciones = {
+                scale: 2, 
+                useCORS: true
+            };
+
+            html2canvas(elementoBoleto, opciones).then(canvas => {
+                const enlace = document.createElement('a');
+                enlace.download = `Boleto_XV_${nombreFamilia.replace(/ /g, "_")}.png`;
+                enlace.href = canvas.toDataURL('image/png');
+                enlace.click();
+            });
+        }
+    </script>
+</body>
+</html>
