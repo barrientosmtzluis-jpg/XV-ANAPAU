@@ -15,38 +15,13 @@ function tick() {
 setInterval(tick, 1000);
 tick();
 
-document.addEventListener('DOMContentLoaded', () => {
-
-    const music = document.getElementById('bgMusic');
-
-    async function iniciarMusica() {
-
-        try {
-            await music.play();
-
-            document.removeEventListener('pointerdown', iniciarMusica);
-            document.removeEventListener('touchstart', iniciarMusica);
-            document.removeEventListener('click', iniciarMusica);
-
-        } catch (e) {
-            console.log('Audio bloqueado:', e);
-        }
-    }
-
-    document.addEventListener('pointerdown', iniciarMusica);
-    document.addEventListener('touchstart', iniciarMusica);
-    document.addEventListener('click', iniciarMusica);
-
-});
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const track = document.querySelector(".carousel-track");
 
     if (!track) return;
 
-    const slides = document.querySelectorAll(".slide");
+    const slides = document.querySelectorAll(".carousel-track img");
 
     let current = 0;
 
@@ -62,6 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
             `translateX(-${current * 100}%)`;
     }
 
-    setInterval(nextSlide, 4000);
+    setInterval(nextSlide, 2000);
 
 });
