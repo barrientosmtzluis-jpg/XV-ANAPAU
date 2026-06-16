@@ -75,6 +75,38 @@
 <footer>
 <p>Tu presencia hará de este día un recuerdo inolvidable.</p>
 </footer>
+
+<div class="contenedor-boleto">
+    </div>
 <script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        function generarBoleto() {
+            const familia = document.getElementById('input-familia').value.trim();
+            const pases = document.getElementById('select-pases').value;
+            if (familia === "") { alert("Por favor, ingresa tu nombre."); return; }
+            document.getElementById('txt-familia').innerText = familia;
+            document.getElementById('txt-pases').innerText = pases;
+            const codigoAleatorio = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('codigo-unico').innerText = `ID: XV-${codigoAleatorio}`;
+            document.getElementById('formulario-registro').style.display = 'none';
+            document.getElementById('zona-boleto').style.display = 'block';
+        }
+        function regresar() {
+            document.getElementById('formulario-registro').style.display = 'block';
+            document.getElementById('zona-boleto').style.display = 'none';
+        }
+        function descargarComoImagen() {
+            const elementoBoleto = document.getElementById('boleto-descargable');
+            const nombreFamilia = document.getElementById('txt-familia').innerText;
+            html2canvas(elementoBoleto, { scale: 2, useCORS: true }).then(canvas => {
+                const enlace = document.createElement('a');
+                enlace.download = `Boleto_XV_${nombreFamilia.replace(/ /g, "_")}.png`;
+                enlace.href = canvas.toDataURL('image/png');
+                enlace.click();
+            });
+        }
+    </script>
 </body>
 </html>
