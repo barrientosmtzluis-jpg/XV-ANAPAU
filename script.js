@@ -100,3 +100,41 @@ const invitados = {
   }
 
 };
+const invitados = {
+
+  XV001:{
+    nombre:"Familia García Hernández",
+    personas:4,
+    mesa:12
+  },
+
+  XV002:{
+    nombre:"Familia Pérez López",
+    personas:6,
+    mesa:8
+  }
+
+};
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+const invitado = invitados[id];
+
+if(invitado){
+
+    document.getElementById("info").innerHTML = `
+
+        <h3>${invitado.nombre}</h3>
+
+        <p>Pases: ${invitado.personas}</p>
+
+        <p>Mesa: ${invitado.mesa}</p>
+
+        <p>Código: ${id}</p>
+
+    `;
+
+}
