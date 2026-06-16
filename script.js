@@ -79,3 +79,24 @@ document.addEventListener(
 );
 
 });
+const invitados = {
+
+  XV001: {
+    nombre: "Familia García Hernández",
+    personas: 4,
+    mesa: 12
+  },
+
+  XV002: {
+    nombre: "Familia Pérez López",
+    personas: 6,
+    mesa: 8
+  },
+
+  XV003: {
+    nombre: "Juan Rodríguez",
+    personas: 2,
+    mesa: 15
+  }
+
+};
