@@ -1,6 +1,7 @@
 const target = new Date('2026-08-22T14:00:00');
 
 function tick() {
+
     const d = target - new Date();
 
     const days = Math.floor(d / 86400000);
@@ -8,41 +9,71 @@ function tick() {
     const m = Math.floor((d % 3600000) / 60000);
     const s = Math.floor((d % 60000) / 1000);
 
-    document.getElementById('countdown').innerHTML =
-        `${days} días ${h} horas ${m} minutos ${s} segundos`;
+    const countdown = document.getElementById('countdown');
+
+    if (countdown) {
+        countdown.innerHTML =
+            `${days} días ${h} horas ${m} minutos ${s} segundos`;
+    }
 }
 
 setInterval(tick, 1000);
 tick();
 
-// ===== CARRUSEL AUTOMÁTICO =====
 
-const fotos = [
-    "assets/gallery/foto1.jpg",
-    "assets/gallery/foto2.jpg",
-    "assets/gallery/foto3.jpg",
-    "assets/gallery/foto4.jpg",
-    "assets/gallery/foto5.jpg"
-];
+// ===== AUDIO =====
 
-let fotoActual = 0;
+document.addEventListener('DOMContentLoaded', () => {
 
-function cambiarFoto() {
+    const music = document.getElementById('bgMusic');
 
-    const img = document.getElementById("galleryImage");
+    async function iniciarMusica() {
 
-    if (!img) return;
+        try {
 
-    fotoActual++;
+            if (music) {
+                await music.play();
+            }
 
-    if (fotoActual >= fotos.length) {
-        fotoActual = 0;
+        } catch (e) {
+            console.log('Audio bloqueado:', e);
+        }
+
+        document.removeEventListener('pointerdown', iniciarMusica);
+        document.removeEventListener('touchstart', iniciarMusica);
+        document.removeEventListener('click', iniciarMusica);
+
     }
 
-    img.src = fotos[fotoActual];
-}
+    document.addEventListener('pointerdown', iniciarMusica);
+    document.addEventListener('touchstart', iniciarMusica);
+    document.addEventListener('click', iniciarMusica);
 
-setInterval(cambiarFoto, 4000);
+});
+
+
+// ===== CARRUSEL =====
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.slide');
+
+    if (!track || slides.length === 0) {
+        console.log('Carrusel no encontrado');
+        return;
+    }
+
+    let current = 0;
+
+    function nextSlide() {
+
+        current++;
+
+        if (current >= slides.length) {
+            current = 0;
+        }
+
         track.style.transform =
             `translateX(-${current * 100}%)`;
 
