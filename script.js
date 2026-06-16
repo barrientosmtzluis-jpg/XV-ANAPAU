@@ -61,5 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         updateCarousel();
     }, 5000);
+    const music =
+document.getElementById('bgMusic');
+
+document.addEventListener(
+    'click',
+    () => {
+
+        if (music.paused) {
+
+            music.play();
+
+        }
+
+    },
+    { once:true }
+);
 
 });
