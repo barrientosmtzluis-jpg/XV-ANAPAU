@@ -38,3 +38,35 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', iniciarMusica);
 
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const track =
+        document.querySelector('.carousel-track');
+
+    if(!track) return;
+
+    const slides =
+        document.querySelectorAll('.carousel-track img');
+
+    let currentSlide = 0;
+
+    function moverCarrusel(){
+
+        currentSlide++;
+
+        if(currentSlide >= slides.length){
+
+            currentSlide = 0;
+
+        }
+
+        track.style.transform =
+            `translateX(-${currentSlide * 100}%)`;
+
+    }
+
+    setInterval(moverCarrusel, 5000);
+
+});
