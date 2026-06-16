@@ -10,19 +10,9 @@ section{padding:55px 20px;max-width:900px;margin:auto}
 footer{background:#b084f5;color:white;padding:25px}
 .lanterns:before{content:'✨ ✨ ✨';position:fixed;top:10px;left:0;right:0;text-align:center;font-size:2rem;opacity:.7}
 
-/* Asegura que el contenedor del carrusel mantenga su tamaño */
-.carousel {
-    max-width: 900px;
-    margin: auto;
-    overflow: hidden; /* Evita que las fotos extras se vean a los lados */
-}
-
-/* Ajusta las imágenes dentro de cada diapositiva */
-.carousel img {
-    width: 100%;
-    height: 500px; /* Puedes ajustar esta altura fija a tu gusto */
-    object-fit: cover; /* Hace que la foto llene el espacio sin deformarse */
-    display: block;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+.slide img{
+    width:100%;
+    height:600px;
+    object-fit:cover;
+    display:block;
 }
