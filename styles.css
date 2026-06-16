@@ -1,4 +1,4 @@
-body{margin:0;font-family:Georgia,serif;background:linear-gradient(#f3e8ff,#fff8f0);color:#5b4378;text-align:center}
+body{margin:0;font-family:Georgia,serif;background:linear-gradient(#f3e8ff,#fff8f0);color:#624A78;text-align:center}
 .hero{min-height:100vh;background:linear-gradient(rgba(120,70,170,.55),rgba(120,70,170,.55)),url('assets/ana-paula.jpg') center top/cover no-repeat;display:flex;align-items:center;justify-content:center}
 .overlay{padding:20px;color:white}
 .portrait{width:220px;height:220px;object-fit:cover;border-radius:50%;border:6px solid #fff}
