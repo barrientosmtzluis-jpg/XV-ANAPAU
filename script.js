@@ -40,33 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const track =
-        document.querySelector('.carousel-track');
+    const track = document.querySelector(".carousel-track");
 
-    if(!track) return;
+    if (!track) return;
 
-    const slides =
-        document.querySelectorAll('.carousel-track img');
+    const slides = document.querySelectorAll(".slide");
 
-    let currentSlide = 0;
+    let current = 0;
 
-    function moverCarrusel(){
+    function nextSlide() {
 
-        currentSlide++;
+        current++;
 
-        if(currentSlide >= slides.length){
-
-            currentSlide = 0;
-
+        if (current >= slides.length) {
+            current = 0;
         }
 
         track.style.transform =
-            `translateX(-${currentSlide * 100}%)`;
-
+            `translateX(-${current * 100}%)`;
     }
 
-    setInterval(moverCarrusel, 5000);
+    setInterval(nextSlide, 4000);
 
 });
