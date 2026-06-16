@@ -19,25 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const music = document.getElementById('bgMusic');
 
-    function iniciarMusica() {
+    async function iniciarMusica() {
 
-        if (!music) {
-            console.log('No se encontró bgMusic');
-            return;
+        try {
+            await music.play();
+
+            document.removeEventListener('pointerdown', iniciarMusica);
+            document.removeEventListener('touchstart', iniciarMusica);
+            document.removeEventListener('click', iniciarMusica);
+
+        } catch (e) {
+            console.log('Audio bloqueado:', e);
         }
-
-        music.play()
-            .then(() => console.log('Música iniciada'))
-            .catch(err => console.log('Error:', err));
-
-        document.removeEventListener('click', iniciarMusica);
-        document.removeEventListener('touchstart', iniciarMusica);
-        document.removeEventListener('scroll', iniciarMusica);
-
     }
 
-    document.addEventListener('click', iniciarMusica);
+    document.addEventListener('pointerdown', iniciarMusica);
     document.addEventListener('touchstart', iniciarMusica);
-    document.addEventListener('scroll', iniciarMusica);
+    document.addEventListener('click', iniciarMusica);
 
 });
