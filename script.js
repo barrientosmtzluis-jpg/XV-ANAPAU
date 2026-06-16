@@ -19,9 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const track = document.querySelector(".carousel-track");
 
-    if (!track) return;
+    const slides = document.querySelectorAll(".slide");
 
-    const slides = document.querySelectorAll(".carousel-track img");
+    if (!track || slides.length === 0) {
+        console.log("No se encontraron slides");
+        return;
+    }
 
     let current = 0;
 
@@ -35,8 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         track.style.transform =
             `translateX(-${current * 100}%)`;
+
     }
 
-    setInterval(nextSlide, 2000);
+    setInterval(nextSlide, 4000);
 
 });
