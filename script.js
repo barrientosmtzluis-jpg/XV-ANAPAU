@@ -20,3 +20,13 @@ enterBtn.addEventListener('click', () => {
     document.getElementById('welcome-screen').style.display = 'none';
 
 });
+const enterBtn = document.getElementById('enterBtn');
+const music = document.getElementById('bgMusic');
+
+enterBtn.addEventListener('click', () => {
+
+    music.play();
+
+    document.getElementById('welcome-screen').style.display = 'none';
+
+});
