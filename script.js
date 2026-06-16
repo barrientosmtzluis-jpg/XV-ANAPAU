@@ -23,35 +23,24 @@ tick();
 
 // ===== AUDIO =====
 
-document.addEventListener('DOMContentLoaded', () => {
+const music = document.getElementById('bgMusic');
 
-    const music = document.getElementById('bgMusic');
+function iniciarMusica() {
 
-    async function iniciarMusica() {
+    if (!music) return;
 
-        try {
+    music.play()
+        .then(() => console.log('Música iniciada'))
+        .catch(err => console.log(err));
 
-            if (music) {
-                await music.play();
-            }
+    document.removeEventListener('touchstart', iniciarMusica);
+    document.removeEventListener('click', iniciarMusica);
+    document.removeEventListener('pointerdown', iniciarMusica);
+}
 
-        } catch (e) {
-            console.log('Audio bloqueado:', e);
-        }
-
-        document.removeEventListener('pointerdown', iniciarMusica);
-        document.removeEventListener('touchstart', iniciarMusica);
-        document.removeEventListener('click', iniciarMusica);
-
-    }
-
-    document.addEventListener('pointerdown', iniciarMusica);
-    document.addEventListener('touchstart', iniciarMusica);
-    document.addEventListener('click', iniciarMusica);
-
-});
-
-
+document.addEventListener('touchstart', iniciarMusica);
+document.addEventListener('click', iniciarMusica);
+document.addEventListener('pointerdown', iniciarMusica);
 // ===== CARRUSEL =====
 
 document.addEventListener('DOMContentLoaded', () => {
