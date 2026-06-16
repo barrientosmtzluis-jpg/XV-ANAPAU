@@ -29,3 +29,8 @@ function iniciarMusica() {
 
 document.addEventListener('click', iniciarMusica);
 document.addEventListener('touchstart', iniciarMusica);
+document.addEventListener(
+    'scroll',
+    iniciarMusica,
+    { once: true }
+);
