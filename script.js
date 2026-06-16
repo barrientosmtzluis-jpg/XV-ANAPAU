@@ -1,68 +1,65 @@
+// CONTADOR
 
-const target=new Date('2026-08-22T14:00:00');
-function tick(){
- const d=target-new Date();
- const days=Math.floor(d/86400000);
- const h=Math.floor((d%86400000)/3600000);
- const m=Math.floor((d%3600000)/60000);
- const s=Math.floor((d%60000)/1000);
- document.getElementById('countdown').innerHTML=`${days} días ${h} horas ${m} minutos ${s} segundos`;
-}
-setInterval(tick,1000);tick();
-const track = document.querySelector('.carousel-track');
-const slides = document.querySelectorAll('.carousel-track img');
+const target = new Date('2026-08-22T14:00:00');
 
-let currentSlide = 0;
+function tick() {
 
-function showSlide(index){
+    const d = target - new Date();
 
-    track.style.transform =
-        `translateX(-${index * 100}%)`;
+    const days = Math.floor(d / 86400000);
+    const hours = Math.floor((d % 86400000) / 3600000);
+    const minutes = Math.floor((d % 3600000) / 60000);
+    const seconds = Math.floor((d % 60000) / 1000);
 
+    document.getElementById('countdown').innerHTML =
+        `${days} días ${hours} horas ${minutes} minutos ${seconds} segundos`;
 }
 
-document.querySelector('.next')
-.addEventListener('click',()=>{
+setInterval(tick, 1000);
+tick();
 
-    currentSlide++;
 
-    if(currentSlide >= slides.length){
+// CARRUSEL
 
-        currentSlide = 0;
+document.addEventListener("DOMContentLoaded", function () {
 
+    const track = document.querySelector(".carousel-track");
+
+    if (!track) return;
+
+    const slides = document.querySelectorAll(".carousel-track img");
+    const nextBtn = document.querySelector(".next");
+    const prevBtn = document.querySelector(".prev");
+
+    let currentSlide = 0;
+
+    function updateCarousel() {
+        track.style.transform =
+            `translateX(-${currentSlide * 100}%)`;
     }
 
-    showSlide(currentSlide);
+    nextBtn.addEventListener("click", () => {
+        currentSlide++;
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+        updateCarousel();
+    });
+
+    prevBtn.addEventListener("click", () => {
+        currentSlide--;
+        if (currentSlide < 0) {
+            currentSlide = slides.length - 1;
+        }
+        updateCarousel();
+    });
+
+    setInterval(() => {
+        currentSlide++;
+        if (currentSlide >= slides.length) {
+            currentSlide = 0;
+        }
+        updateCarousel();
+    }, 5000);
 
 });
-
-document.querySelector('.prev')
-.addEventListener('click',()=>{
-
-    currentSlide--;
-
-    if(currentSlide < 0){
-
-        currentSlide = slides.length - 1;
-
-    }
-
-    showSlide(currentSlide);
-
-});
-
-/* Cambio automático cada 5 segundos */
-
-setInterval(()=>{
-
-    currentSlide++;
-
-    if(currentSlide >= slides.length){
-
-        currentSlide = 0;
-
-    }
-
-    showSlide(currentSlide);
-
-},5000);
