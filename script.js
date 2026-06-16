@@ -15,27 +15,34 @@ function tick() {
 setInterval(tick, 1000);
 tick();
 
-document.addEventListener("DOMContentLoaded", () => {
+// ===== CARRUSEL AUTOMÁTICO =====
 
-    const track = document.querySelector(".carousel-track");
+const fotos = [
+    "assets/gallery/foto1.jpg",
+    "assets/gallery/foto2.jpg",
+    "assets/gallery/foto3.jpg",
+    "assets/gallery/foto4.jpg",
+    "assets/gallery/foto5.jpg"
+];
 
-    const slides = document.querySelectorAll(".slide");
+let fotoActual = 0;
 
-    if (!track || slides.length === 0) {
-        console.log("No se encontraron slides");
-        return;
+function cambiarFoto() {
+
+    const img = document.getElementById("galleryImage");
+
+    if (!img) return;
+
+    fotoActual++;
+
+    if (fotoActual >= fotos.length) {
+        fotoActual = 0;
     }
 
-    let current = 0;
+    img.src = fotos[fotoActual];
+}
 
-    function nextSlide() {
-
-        current++;
-
-        if (current >= slides.length) {
-            current = 0;
-        }
-
+setInterval(cambiarFoto, 4000);
         track.style.transform =
             `translateX(-${current * 100}%)`;
 
