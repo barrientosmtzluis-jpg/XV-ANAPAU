@@ -38,9 +38,6 @@ function iniciarMusica() {
     document.removeEventListener('pointerdown', iniciarMusica);
 }
 
-document.addEventListener('touchstart', iniciarMusica);
-document.addEventListener('click', iniciarMusica);
-document.addEventListener('pointerdown', iniciarMusica);
 // ===== CARRUSEL =====
 
 document.addEventListener('DOMContentLoaded', () => {
