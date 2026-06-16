@@ -8,3 +8,13 @@ function tick(){
  const s=Math.floor((d%60000)/1000);
  document.getElementById('countdown').innerHTML=`${days} días ${h} horas ${m} minutos ${s} segundos`;
 }
+const enterBtn = document.getElementById('enterBtn');
+const music = document.getElementById('bgMusic');
+
+enterBtn.addEventListener('click', () => {
+
+    music.play();
+
+    document.getElementById('welcome-screen').style.display = 'none';
+
+});
