@@ -8,13 +8,24 @@ function tick(){
  const s=Math.floor((d%60000)/1000);
  document.getElementById('countdown').innerHTML=`${days} días ${h} horas ${m} minutos ${s} segundos`;
 }
-const enterBtn = document.getElementById('enterBtn');
+// MÚSICA AL PRIMER TOQUE
+
 const music = document.getElementById('bgMusic');
 
-enterBtn.addEventListener('click', () => {
+function iniciarMusica() {
 
-    music.play();
+    if (music) {
 
-    document.getElementById('welcome-screen').style.display = 'none';
+        music.play().catch(err => {
+            console.log("No se pudo iniciar la música:", err);
+        });
 
-});
+    }
+
+    document.removeEventListener('click', iniciarMusica);
+    document.removeEventListener('touchstart', iniciarMusica);
+
+}
+
+document.addEventListener('click', iniciarMusica);
+document.addEventListener('touchstart', iniciarMusica);
